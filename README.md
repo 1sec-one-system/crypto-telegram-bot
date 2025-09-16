@@ -1,4 +1,40 @@
-# one-tg-bot
+# 🤖 1Sec One Telegram Bot
+
+Telegram bot API endpoint'i Vercel üzerinde çalışan bir proje.
+
+## 🚀 Vercel Deployment
+
+### 1. Environment Variables Ayarla
+Vercel dashboard'da aşağıdaki environment variables'ları ekleyin:
+
+```bash
+BOT_TOKEN=your_telegram_bot_token_here
+WORKER_URL=https://one.1sec-one-system.workers.dev
+```
+
+### 2. Deployment
+```bash
+# Vercel CLI ile
+vercel --prod
+
+# Veya GitHub ile otomatik deployment
+```
+
+### 3. API Endpoints
+- **Ana Sayfa**: `https://your-app.vercel.app/`
+- **API Endpoint**: `https://your-app.vercel.app/api`
+
+## 🔧 Yerel Geliştirme
+
+```bash
+npm install
+npm run dev
+```
+
+## 📝 Notlar
+- API route: `/api/index.js`
+- Ana sayfa: `index.html`
+- Worker URL: Cloudflare Workers üzerinde çalışan analiz servisi
 
 Telegram → Vercel → Cloudflare Worker akışı.
 

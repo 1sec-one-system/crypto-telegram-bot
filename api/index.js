@@ -9,9 +9,26 @@ const cornix = (sym, side, entry, tps, sl) => {
 };
 
 export default async function handler(req, res){
-  const body = req.body || req.query || {};
-  const msg = body.message || body.edited_message;
-  if(!msg?.text) return { status: 200, json: () => ({ok:true}) };
+  try {
+    // CORS headers ekle
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
+    
+    console.log(`📨 Gelen istek: ${req.method} ${req.url}`);
+    console.log(`📦 Body:`, JSON.stringify(req.body, null, 2));
+    
+    const body = req.body || req.query || {};
+    const msg = body.message || body.edited_message;
+    
+    if(!msg?.text) {
+      console.log('⚠️ Mesaj metni bulunamadı');
+      return res.status(200).json({ok:true, message: 'No text message found'});
+    }
   const chatId = msg.chat.id;
 
   const [raw, tf="1h"] = msg.text.trim().split(/\s+/);
@@ -88,4 +105,13 @@ export default async function handler(req, res){
   }
 
   return res.status(200).json({ok:true});
+  
+  } catch (error) {
+    console.error('❌ API Hatası:', error);
+    return res.status(500).json({
+      ok: false, 
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
 }
