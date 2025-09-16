@@ -11,9 +11,5 @@
       "src": "/api/(.*)",
       "dest": "/api/index.js"
     }
-  ],
-  "env": {
-    "BOT_TOKEN": "@bot_token",
-    "WORKER_URL": "@worker_url"
-  }
+  ]
 }
